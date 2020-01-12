@@ -1,2 +1,4 @@
 /src/**.test.tsx
 **.css
+/.vscode/
+/src/serviceWorker.ts
