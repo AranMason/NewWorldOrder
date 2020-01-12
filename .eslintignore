@@ -1,4 +1,13 @@
-/src/**.test.tsx
-**.css
 /.vscode/
+/node_modules/
+/public/
 /src/serviceWorker.ts
+
+*.d.ts
+*.css
+*.svg
+*.ico
+*.json
+.gitignore
+*.log
+*.lock

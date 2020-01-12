@@ -7,16 +7,11 @@
   "editor.tabCompletion": "on",
   "editor.formatOnSave": true,
   "eslint.validate": [
+    "html",
     "javascript",
+    "typescript",
     "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
+    "typescriptreact"
   ],
 
 }
