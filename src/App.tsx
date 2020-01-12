@@ -1,8 +1,13 @@
 import React from 'react';
 import './App.css';
+import Helmet from 'react-helmet';
 
 const App: React.FC = () => (
   <div className="App-Container">
+    <Helmet>
+      <title>Template App</title>
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Serif&display=swap" rel="stylesheet" />
+    </Helmet>
     <header>
       <h1 className="title">Header 1</h1>
     </header>
