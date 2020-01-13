@@ -1,10 +1,7 @@
-import { ReduxActionType } from '../../models/redux';
+import * as Types from '../../models/Types';
 
 export const ADD = 'ADD_TODO';
-export interface AddTodoType {
-  title: string;
-}
-export function AddTodo(data: AddTodoType): ReduxActionType<AddTodoType> {
+export function AddTodo(data: Types.AddTodo): Types.ActionAddTodo {
   return {
     type: ADD,
     payload: data,
@@ -12,14 +9,11 @@ export function AddTodo(data: AddTodoType): ReduxActionType<AddTodoType> {
 }
 
 export const DELETE = 'DELETE_TODO';
-export interface DeleteTodoType {
-  title: string;
-}
-export function DeleteTodo(data: DeleteTodoType): ReduxActionType<DeleteTodoType> {
+export function DeleteTodo(data: Types.DeleteTodo): Types.ActionDeleteTodo {
   return {
     type: DELETE,
     payload: data,
   };
 }
 
-export type TodoTypes = ReduxActionType<AddTodoType | DeleteTodoType>;
+export type TodoTypes = Types.ActionAddTodo | Types.ActionDeleteTodo;

@@ -4,9 +4,9 @@ import Helmet from 'react-helmet';
 
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { AddTodo, AddTodoType } from './state/actions/todo';
+import { AddTodo } from './state/actions/todo';
 import { RootState } from './state/reducers';
-import { ReduxActionType } from './models/redux';
+import * as Types from './models/Types';
 
 /**
  * Defining Connections
@@ -16,7 +16,7 @@ interface MapStateType {
 }
 
 interface MapDispatchType {
-  AddTodo: (data: AddTodoType) => ReduxActionType<AddTodoType>;
+  AddTodo: (data: Types.AddTodo) => Types.ActionAddTodo;
 }
 /**
  * Mapping Functions
@@ -25,7 +25,7 @@ const mapState = (state: RootState): MapStateType => ({ todo: state.todo.todo })
 
 const mapDispatch = (dispatch: Dispatch): MapDispatchType => {
   return {
-    AddTodo: (data: AddTodoType): ReduxActionType<AddTodoType> => dispatch(AddTodo(data)),
+    AddTodo: (data: Types.AddTodo): Types.ActionAddTodo => dispatch(AddTodo(data)),
   };
 };
 

@@ -1,15 +1,11 @@
 import ACTION from '../actions';
-import { TodoTypes } from '../actions/todo';
+import { TodoState, TodoTypes } from '../../models/Types';
 
-interface State {
-  todo: string[];
-}
-
-const initialState: State = {
-  todo: ['hi'] as string[],
+const initialState: TodoState = {
+  todo: [] as string[],
 };
 
-export default function todoReducer(state: State = initialState, action: TodoTypes): State {
+export default function todoReducer(state: TodoState = initialState, action: TodoTypes): TodoState {
   switch (action.type) {
     case ACTION.TODO.ADD:
       return {
