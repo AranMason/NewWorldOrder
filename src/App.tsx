@@ -57,7 +57,6 @@ class App extends React.Component<Props, ComponentState> {
       <div className="App-Container">
         <Helmet>
           <title>{title}</title>
-          <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Noto+Serif&display=swap" rel="stylesheet" />
         </Helmet>
         <header>
           <h1 className="title">{title}</h1>
