@@ -9,7 +9,8 @@
 }
 
 html,
-body {
+body,
+#root {
   position: fixed;
   top: 0;
   bottom: 0;

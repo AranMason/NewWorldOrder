@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
 import Helmet from 'react-helmet';
+import Axios from 'axios';
+import { getDistance } from 'geolib';
 
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AddTodo } from './state/actions/todo';
 import { RootState } from './state/reducers';
 import * as Types from './models/Types';
+
+import SuperMarket from './components/SuperMarket';
 
 /**
  * Defining Connections
@@ -34,6 +38,12 @@ const mapDispatch = (dispatch: Dispatch): MapDispatchType => {
  */
 interface ComponentState {
   title: string;
+  supermarkets: Types.SuperMarketStore[];
+  isLoading: boolean;
+  userLocation: {
+    latitude: number;
+    longitude: number;
+  }
 }
 
 type Props = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>;
@@ -46,8 +56,74 @@ class App extends React.Component<Props, ComponentState> {
     super(props);
 
     this.state = {
-      title: 'Test App',
+      title: 'New World Order',
+      supermarkets: [],
+      isLoading: true,
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+      }
     };
+
+    this.gotUserLocation = this.gotUserLocation.bind(this)
+  }
+
+  gotUserLocation(pos: any) {
+
+
+
+    Axios.get("https://www.ishopnewworld.co.nz/CommonApi/Store/GetStoreList").then((res: any) => {
+
+      this.setState({
+        supermarkets: res.data.stores,
+        isLoading: false,
+        userLocation: {
+          latitude: pos.coords.latitude || 0,
+          longitude: pos.coords.longitude || 0,
+        }
+      })
+
+    })
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(this.gotUserLocation);
+
+  }
+
+  renderIsLoading() {
+
+
+    if (this.state.isLoading) {
+      return (
+        <div>
+          For this app to work, you will need to allow access to your location. This data is not stored, only to find the nearest stores to you.
+        </div>
+      )
+    } else {
+      return (
+        <div className="supermarket-container">
+          {this.state.supermarkets.map((store) => {
+
+            var withinRange = getDistance(this.state.userLocation, {
+              latitude: store.latitude,
+              longitude: store.longitude
+            })
+
+            //Distance is within 5km
+            if (withinRange > 5000) {
+              return null;
+            }
+
+            return (
+              <SuperMarket key={store.id} {...store} />
+            )
+
+          })
+          }
+        </div>
+      )
+    }
   }
 
   render(): JSX.Element | null {
@@ -61,29 +137,11 @@ class App extends React.Component<Props, ComponentState> {
         <header>
           <h1 className="title">{title}</h1>
         </header>
+
         <section>
-          <h1>Header 1</h1>
-          <h2>Header 2</h2>
-          <h3>Header 3</h3>
-          <h4>Header 4</h4>
-          <h5>Header 5</h5>
-          <h6>Header 6</h6>
+          {this.renderIsLoading()}
         </section>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-          <span>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          </span>
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <p>
-          Hyperlink:
-          <a href="/">here</a>
-        </p>
-        <section />
-        <footer>Footer</footer>
+        <footer>Created by Aran Mason</footer>
       </div>
     );
   }
