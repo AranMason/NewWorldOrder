@@ -152,7 +152,7 @@ class App extends React.Component<Props, ComponentState> {
           <h1 className="title">{title}</h1>
 
         </header>
-        <div className="App-info">This webpage gets the next available time slot for all New World Supermarkets within 5km. You will still need to claim the instance, so there is no guarantee it is still available when you shop.</div>
+        <div className="App-info">This webpage gets the next available time slot for all New World Supermarkets within 10km. You will still need to claim the instance, so there is no guarantee it is still available when you shop.</div>
 
         <section>
           {this.renderIsLoading()}
