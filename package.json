@@ -1,6 +1,7 @@
 {
   "name": "hpa_web",
   "version": "0.1.0",
+  "homepage": "https://aranmason.github.io/NewWorldOrder/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -28,7 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -67,6 +70,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "gh-pages": "^2.2.0",
     "prettier": "^1.19.1"
   }
 }
