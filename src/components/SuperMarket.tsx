@@ -4,7 +4,6 @@ import moment from 'moment';
 import Axios from 'axios';
 
 import './SuperMarket.css';
-import store from '../state/store';
 
 interface State {
   isLoading: boolean;
