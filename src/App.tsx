@@ -91,6 +91,37 @@ class App extends React.Component<Props, ComponentState> {
 
   }
 
+  renderSuperMarkets() {
+
+    var nearBy: ({
+      distance?: number
+    } & Types.SuperMarketStore)[] = this.state.supermarkets.map(store => {
+      var range = getDistance(this.state.userLocation, {
+        latitude: store.latitude,
+        longitude: store.longitude
+      })
+
+      return {
+        ...store,
+        distance: range
+      }
+    }).filter(store => {
+      return store.distance < 10000 //Within 10km
+    }).sort((store_a, store_b) => {
+      return store_a.distance - store_b.distance;
+    })
+
+
+
+    if (nearBy.length === 0) {
+      return <div>
+        No Supermarkets found?
+      </div>
+    } else {
+      return nearBy.map((store) => <SuperMarket key={store.id} {...store} />)
+    }
+  }
+
   renderIsLoading() {
 
 
@@ -103,24 +134,7 @@ class App extends React.Component<Props, ComponentState> {
     } else {
       return (
         <div className="App-supermarket-container">
-          {this.state.supermarkets.map((store) => {
-
-            var withinRange = getDistance(this.state.userLocation, {
-              latitude: store.latitude,
-              longitude: store.longitude
-            })
-
-            //Distance is within 5km
-            if (withinRange > 5000) {
-              return null;
-            }
-
-            return (
-              <SuperMarket key={store.id} {...store} />
-            )
-
-          })
-          }
+          {this.renderSuperMarkets()}
         </div>
       )
     }
@@ -138,7 +152,7 @@ class App extends React.Component<Props, ComponentState> {
           <h1 className="title">{title}</h1>
 
         </header>
-        <div className="App-info">This webpage gets the next available timeslot for all New World Supermarkets within 5km. You will still need to claim the instance, so there is no garentee it is still available when you shop.</div>
+        <div className="App-info">This webpage gets the next available time slot for all New World Supermarkets within 5km. You will still need to claim the instance, so there is no guarantee it is still available when you shop.</div>
 
         <section>
           {this.renderIsLoading()}

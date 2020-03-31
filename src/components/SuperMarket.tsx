@@ -4,10 +4,18 @@ import moment from 'moment';
 import Axios from 'axios';
 
 import './SuperMarket.css';
+import store from '../state/store';
 
 interface State {
   isLoading: boolean;
-  openings: SuperMarketOpenings[]
+  openings: SuperMarketOpenings[];
+  next: NextTimeSlots | null;
+}
+
+interface NextTimeSlots {
+  slot: string;
+  available: number;
+  date: string;
 }
 
 interface Props {
@@ -21,36 +29,36 @@ class SuperMarket extends React.Component<SuperMarketStore, State>{
     this.state = {
       isLoading: true,
       openings: [],
+      next: null
     }
   }
 
   componentDidMount() {
-
     Axios.get(`https://www.ishopnewworld.co.nz/CommonApi/Delivery/GetClickCollectTimeSlot?id=${this.props.id}`).then(res => {
       var data = res.data as {
         slots: SuperMarketOpenings[];
       }
 
-      console.log(res);
+      var openings = data.slots.sort((a, b) => {
+
+        var date_a = Date.parse(a.date);
+        var date_b = Date.parse(b.date);
+
+        return date_a - date_b;
+      });
 
       this.setState({
-        openings: data.slots.sort((a, b) => {
-
-          var date_a = Date.parse(a.date);
-          var date_b = Date.parse(b.date);
-
-          return date_a - date_b;
-        })
+        openings,
+        next: this.nextOpenings(openings),
+        isLoading: false,
       })
 
     })
   }
 
-  renderNextOpenSpace() {
+  nextOpenings(days: SuperMarketOpenings[]): NextTimeSlots | null {
 
     const timeSlots = ["07:30AM - 08:00AM", "08:00AM - 08:30AM", "09:00AM - 09:30AM", "10:00AM - 10:30AM", "11:00AM - 11:30AM", "12:00PM - 12:30PM", "01:00PM - 01:30PM", "02:00PM - 02:30PM", "03:00PM - 03:30PM"]
-
-    var days = this.state.openings;
 
     for (var i = 0; i < days.length; i++) {
 
@@ -65,23 +73,44 @@ class SuperMarket extends React.Component<SuperMarketStore, State>{
         var timeSlot = days[i].timeSlots[j];
 
         if (timeSlot.available > 0) {
-          return (
-            <div className="Supermarket-info">
+          return {
+            slot: timeSlot.slot,
+            date: days[i].date,
+            available: timeSlot.available,
+          }
 
-              <div><span>Next time slot: </span></div>
-              <div>{moment(days[i].date, "YYYY-MM-DD").format('LL')}</div>
-              <div>{timeSlot.slot}</div>
-            </div>
-          )
         }
       }
     }
 
+    return null
+  }
+
+  renderNextOpenSpace() {
+
+    if (this.state.isLoading) {
+      return <div>
+        Loading...
+      </div>
+    }
+
+    if (!this.state.next) {
+      return (
+        <div className="Supermarket-info">
+          <div><span>Next time slot: </span></div>
+          <div>No time slots found</div>
+        </div>
+      )
+    }
+
     return <div className="Supermarket-info">
 
-      <div><span>Time slot: </span></div>
-      <div>None</div>
-    </div>;
+      <div><span>Next time slot: </span></div>
+      <div>{moment(this.state.next.date, "YYYY-MM-DD").format('LL')}</div>
+      <div>{this.state.next.slot}</div>
+
+    </div>
+
 
   }
 
@@ -92,6 +121,7 @@ class SuperMarket extends React.Component<SuperMarketStore, State>{
       </section>
 
       <section>
+        {this.props.distance ? <div>Distance: {(this.props.distance / 1000).toFixed(2)}km away</div> : null}
 
         {this.renderNextOpenSpace()}
       </section>

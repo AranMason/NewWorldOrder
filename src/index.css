@@ -22,9 +22,9 @@ body,
 #root {
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   display: flex;
   font-family: 'Noto Serif', serif;
   font-size: 15px;
@@ -77,7 +77,6 @@ span {
 
 header {
   background-color: var(--primary);
-  width: 100%;
 }
 
 header>.title {
@@ -88,7 +87,6 @@ header>.title {
 footer {
   background-color: var(--dark);
   color: var(--background);
-  width: 100%;
 }
 
 header,

@@ -39,6 +39,7 @@ export interface SuperMarketStore {
   regionName: string;
   regionCode: string;
   holidays: any[];
+  distance?: number;
 }
 
 export interface TimeSlot {
