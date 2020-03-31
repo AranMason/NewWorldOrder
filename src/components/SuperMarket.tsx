@@ -1,7 +1,9 @@
 import React from 'react';
-import { SuperMarketStore, SuperMarketOpenings, TimeSlot } from '../models/Types';
-
+import { SuperMarketStore, SuperMarketOpenings } from '../models/Types';
+import moment from 'moment';
 import Axios from 'axios';
+
+import './SuperMarket.css';
 
 interface State {
   isLoading: boolean;
@@ -50,8 +52,6 @@ class SuperMarket extends React.Component<SuperMarketStore, State>{
 
     var days = this.state.openings;
 
-    var nextOpen: TimeSlot | null = null;
-
     for (var i = 0; i < days.length; i++) {
 
       var slots = days[i].timeSlots;
@@ -66,15 +66,22 @@ class SuperMarket extends React.Component<SuperMarketStore, State>{
 
         if (timeSlot.available > 0) {
           return (
-            <div>
-              {days[i].date} - {timeSlot.slot}
+            <div className="Supermarket-info">
+
+              <div><span>Next time slot: </span></div>
+              <div>{moment(days[i].date, "YYYY-MM-DD").format('LL')}</div>
+              <div>{timeSlot.slot}</div>
             </div>
           )
         }
       }
     }
 
-    return null;
+    return <div className="Supermarket-info">
+
+      <div><span>Time slot: </span></div>
+      <div>None</div>
+    </div>;
 
   }
 

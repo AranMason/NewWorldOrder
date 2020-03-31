@@ -96,13 +96,13 @@ class App extends React.Component<Props, ComponentState> {
 
     if (this.state.isLoading) {
       return (
-        <div>
+        <div className="App-info">
           For this app to work, you will need to allow access to your location. This data is not stored, only to find the nearest stores to you.
         </div>
       )
     } else {
       return (
-        <div className="supermarket-container">
+        <div className="App-supermarket-container">
           {this.state.supermarkets.map((store) => {
 
             var withinRange = getDistance(this.state.userLocation, {
@@ -136,7 +136,9 @@ class App extends React.Component<Props, ComponentState> {
         </Helmet>
         <header>
           <h1 className="title">{title}</h1>
+
         </header>
+        <div className="App-info">This webpage gets the next available timeslot for all New World Supermarkets within 5km. You will still need to claim the instance, so there is no garentee it is still available when you shop.</div>
 
         <section>
           {this.renderIsLoading()}

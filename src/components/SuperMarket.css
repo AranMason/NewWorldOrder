@@ -1,0 +1,7 @@
+.Supermarket-info {
+  flex-direction: column;
+}
+
+.Supermarket-info > div {
+  padding: 0.2em;
+}
