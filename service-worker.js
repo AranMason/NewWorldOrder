@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/NewWorldOrder/precache-manifest.a32d6fdbea16ef7e30df39d69019810f.js"
+  "/NewWorldOrder/precache-manifest.56a447033d181b5fb0c2218e559d5d5a.js"
 );
 
 self.addEventListener('message', (event) => {
