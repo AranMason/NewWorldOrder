@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/NewWorldOrder/static/css/main.3e845f06.chunk.css",
+    "main.js": "/NewWorldOrder/static/js/main.90ee8687.chunk.js",
+    "main.js.map": "/NewWorldOrder/static/js/main.90ee8687.chunk.js.map",
+    "runtime-main.js": "/NewWorldOrder/static/js/runtime-main.0ca10879.js",
+    "runtime-main.js.map": "/NewWorldOrder/static/js/runtime-main.0ca10879.js.map",
+    "static/js/2.23c2f89c.chunk.js": "/NewWorldOrder/static/js/2.23c2f89c.chunk.js",
+    "static/js/2.23c2f89c.chunk.js.map": "/NewWorldOrder/static/js/2.23c2f89c.chunk.js.map",
+    "index.html": "/NewWorldOrder/index.html",
+    "precache-manifest.0ea61a5cf63c1cfad127317a40b22333.js": "/NewWorldOrder/precache-manifest.0ea61a5cf63c1cfad127317a40b22333.js",
+    "service-worker.js": "/NewWorldOrder/service-worker.js",
+    "static/css/main.3e845f06.chunk.css.map": "/NewWorldOrder/static/css/main.3e845f06.chunk.css.map",
+    "static/js/2.23c2f89c.chunk.js.LICENSE": "/NewWorldOrder/static/js/2.23c2f89c.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0ca10879.js",
+    "static/js/2.23c2f89c.chunk.js",
+    "static/css/main.3e845f06.chunk.css",
+    "static/js/main.90ee8687.chunk.js"
+  ]
+}
